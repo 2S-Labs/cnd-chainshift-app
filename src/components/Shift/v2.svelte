@@ -125,15 +125,7 @@
     background-color: $main;
     cursor: pointer;
   }
-  .sub-btn-non {
-    width: 100%;
-    background-color: lightgray;
-    font-size: 20px;
-    border-radius: 10px;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-  }
+
   .sub-content {
     width: 100%;
     padding: 15px;
@@ -196,22 +188,6 @@
     justify-content: space-between;
     margin-bottom: 10px;
     font-size: 1rem;
-  }
-
-  .sub-btn {
-    width: 100%;
-    background-color: $main;
-    font-size: 20px;
-    border-radius: 10px;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-    cursor: pointer;
-  }
-
-  .sub-selected {
-    margin-top: 10px;
-    margin-bottom: 10px;
   }
 
   input {
