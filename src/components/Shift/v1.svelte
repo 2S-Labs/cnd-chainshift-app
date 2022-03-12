@@ -57,6 +57,13 @@
     <div class="sub-item-wrap">
       <div class="sub-item-title"><b>Dimensional Shift to Klaytn</b></div>
       <div class="sub-item-explain">CxNxD V1클론을 클레이튼 블록체인으로 차원이동 시킵니다.</div>
+      <div class="sub-item-explain">
+        오픈씨 컬렉션: <a
+          class="link"
+          target="_blank"
+          href="https://opensea.io/collection/clones-never-die-kings">Clones Never Die Kings</a
+        >
+      </div>
       <div class="sub-item-title"><b>Klaytn Address</b></div>
       <div class="sub-item-explain">전송받을 클레이튼 지갑 주소를 입력 해주세요</div>
       {#if $isConnect}
@@ -236,7 +243,11 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
     width: 100%;
-    height: 100vh;
+    height: 120%;
+  }
+
+  .link {
+    color: white;
   }
   @media screen and (max-width: 768px) {
     .sub-item-wrap {
