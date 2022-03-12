@@ -1,5 +1,13 @@
 <script lang="ts">
-  import { isConnect, myAddress, myAddressShort, v1List, v1Loading, v2List, v2Loading } from '@/stores/index'
+  import {
+    isConnect,
+    myAddress,
+    myAddressShort,
+    v1List,
+    v1Loading,
+    v2List,
+    v2Loading,
+  } from '@/stores/index'
   import {
     addChain,
     connect,
@@ -7,8 +15,14 @@
     getAddress,
     getAddressShort,
     requestAccount,
+    accountsChanged,
   } from '@/chain/index'
   import axios from 'axios'
+  import { onMount } from 'svelte'
+
+  onMount(async () => {
+    await accountsChanged()
+  })
 
   async function walletConnect() {
     await addChain()

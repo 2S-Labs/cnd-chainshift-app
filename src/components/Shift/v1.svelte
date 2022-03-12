@@ -1,7 +1,12 @@
 <script lang="ts">
-  import { v1List, v1Loading } from '@/stores'
+  import { v1List, v1Loading, isConnect, myAddress } from '@/stores'
   import { RingLoader } from 'svelte-loading-spinners'
+  import { inputV1 } from '@/contracts/index'
+  import { Diamonds } from 'svelte-loading-spinners'
+  import axios from 'axios'
 
+  let spinnerState = false
+  let klayAddress: string = ''
   let checkedIds: Array<any> = []
 
   function cheked(num: number) {
@@ -19,6 +24,31 @@
       checkedIds = checkedIds
     }
   }
+
+  async function getMyNFTListV1() {
+    $v1Loading = true
+    const data = await axios({
+      method: 'get',
+      url: `http://localhost:3000/nft/v1/${$myAddress}`,
+    })
+    $v1List = [...data.data.tokenIds]
+    $v1Loading = false
+  }
+
+  async function shiftInput() {
+    spinnerState = true
+    try {
+      await inputV1(checkedIds, klayAddress)
+      await getMyNFTListV1()
+      checkedIds = []
+      klayAddress = ''
+      spinnerState = false
+      alert('success')
+    } catch (error) {
+      spinnerState = false
+      alert('error')
+    }
+  }
 </script>
 
 <div class="sub-content">
@@ -29,7 +59,11 @@
       <div class="sub-item-explain">CxNxD V1클론을 클레이튼 블록체인으로 차원이동 시킵니다.</div>
       <div class="sub-item-title"><b>Klaytn Address</b></div>
       <div class="sub-item-explain">전송받을 클레이튼 지갑 주소를 입력 해주세요</div>
-      <input type="number" readonly disabled />
+      {#if $isConnect}
+        <input type="text" bind:value={klayAddress} />
+      {:else}
+        <input type="text" readonly disabled />
+      {/if}
       <div class="sub-item-title"><b>My Clones</b></div>
       <ul class="sub-item-list-head">
         <li class="list-item">
@@ -57,24 +91,25 @@
             <RingLoader size="60" color="#FF7F00" unit="px" duration="1s" />
           </div>
         {/if}
-        <!-- {#if $walletLoading === false}
-          <div class="loading">
-            <RingLoader size="60" color="#FF7F00" unit="px" duration="1s" />
-          </div>
-        {/if}
       </ul>
-
-      <!-- <div class="sub-selected">Selected ID: {checkedIds}</div> -->
-        <!-- <div class="sub-selected">Selected clones: {checkedIds.length}</div>
-      {#if checkedIds.length === 0}
-        <div class="sub-btn-non"><b>Staking</b></div>
+      {#if $isConnect && klayAddress.length === 42 && checkedIds.length > 0}
+        <div class="subbtn" on:click={shiftInput}>
+          <b> Dimensional Shift </b>
+        </div>
       {:else}
-        <div class="sub-btn" on:click={goLotus}><b>Staking</b></div>
-      {/if} -->
-      </ul>
+        <div class="subbtn-disable">
+          <b> Dimensional Shift </b>
+        </div>
+      {/if}
     </div>
   </div>
 </div>
+
+{#if spinnerState}
+  <div class="spiner">
+    <Diamonds size="60" color="#FF7F00" unit="px" duration="1s" />
+  </div>
+{/if}
 
 <style lang="scss">
   .check {
@@ -186,6 +221,46 @@
     margin-bottom: 30px;
     display: flex;
     box-sizing: border-box;
+  }
+
+  .subbtn-disable {
+    width: 100%;
+    background-color: lightgray;
+    font-size: 20px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+
+  .subbtn {
+    width: 100%;
+    background-color: $main;
+    font-size: 20px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .subbtn:active {
+    opacity: 0.7;
+  }
+
+  .spiner {
+    z-index: 100;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100vh;
   }
   @media screen and (max-width: 768px) {
     .sub-item-wrap {

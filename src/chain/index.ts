@@ -22,6 +22,12 @@ export async function requestAccount() {
   await ethereum.request({ method: 'eth_requestAccounts' })
 }
 
+export async function accountsChanged() {
+  ethereum.on('accountsChanged', async () => {
+    window.location.reload()
+  })
+}
+
 export async function addChain() {
   // await ethereum.request({
   //   method: 'wallet_addEthereumChain',
