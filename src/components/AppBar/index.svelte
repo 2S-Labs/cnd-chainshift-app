@@ -46,7 +46,7 @@
     $v1Loading = true
     const data = await axios({
       method: 'get',
-      url: `http://localhost:3000/nft/v1/${$myAddress}`,
+      url: `https://chainshiftapi.clonesneverdie.com/nft/v1/${$myAddress}`,
     })
     $v1List = [...data.data.tokenIds]
     $v1Loading = false
@@ -56,7 +56,7 @@
     $v2Loading = true
     const data = await axios({
       method: 'get',
-      url: `http://localhost:3000/nft/v2/${$myAddress}`,
+      url: `https://chainshiftapi.clonesneverdie.com/nft/v2/${$myAddress}`,
     })
     $v2List = [...data.data.tokenIds]
     $v2Loading = false
