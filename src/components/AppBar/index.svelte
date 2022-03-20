@@ -61,13 +61,18 @@
     $v2List = [...data.data.tokenIds]
     $v2Loading = false
   }
+
+  function pause() {
+    alert('현재 클레이튼 블록체인 문제로 차원이동을 잠시 중단합니다.')
+  }
 </script>
 
 <div class="appbar">
   {#if $isConnect}
     <div class="address">{$myAddressShort}</div>
   {:else}
-    <div class="button" on:click={walletConnect}>Wallet Connect</div>
+    <!-- <div class="button" on:click={walletConnect}>Wallet Connect</div> -->
+    <div class="button" on:click={pause}>Wallet Connect</div>
   {/if}
 </div>
 
