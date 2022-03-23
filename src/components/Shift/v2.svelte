@@ -25,6 +25,19 @@
     }
   }
 
+  function selectMax() {
+    console.log($v2List.length)
+    if ($v2List.length < 100) {
+      for (let i = 0; i < $v2List.length; i++) {
+        cheked($v2List[i])
+      }
+    } else {
+      for (let i = 0; i < 100; i++) {
+        cheked($v2List[i])
+      }
+    }
+  }
+
   async function getMyNFTListV2() {
     $v2Loading = true
     const data = await axios({
@@ -74,6 +87,11 @@
         <input type="text" bind:value={klayAddress} />
       {:else}
         <input type="text" readonly disabled />
+      {/if}
+      {#if $isConnect}
+        <div class="select-btn" on:click={selectMax}>Select Max</div>
+      {:else}
+        <div class="select-btn-unactive">Select Max</div>
       {/if}
       <div class="sub-item-title"><b>My Clones</b></div>
       <ul class="sub-item-list-head">
@@ -253,6 +271,30 @@
   .link {
     color: white;
   }
+
+  .select-btn {
+    font-size: 1.2rem;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: $main;
+    width: 150px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .select-btn-unactive {
+    font-size: 1.2rem;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: lightgray;
+    width: 150px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
   @media screen and (max-width: 768px) {
     .sub-item-wrap {
       padding: 15px;
