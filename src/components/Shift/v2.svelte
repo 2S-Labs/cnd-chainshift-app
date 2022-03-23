@@ -26,7 +26,6 @@
   }
 
   function selectMax() {
-    console.log($v2List.length)
     if ($v2List.length < 100) {
       for (let i = 0; i < $v2List.length; i++) {
         cheked($v2List[i])
