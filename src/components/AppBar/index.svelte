@@ -71,8 +71,8 @@
   {#if $isConnect}
     <div class="address">{$myAddressShort}</div>
   {:else}
-    <!-- <div class="button" on:click={walletConnect}>Wallet Connect</div> -->
-    <div class="button" on:click={pause}>Wallet Connect</div>
+    <div class="button" on:click={walletConnect}>Wallet Connect</div>
+    <!-- <div class="button" on:click={pause}>Wallet Connect</div> -->
   {/if}
 </div>
 
